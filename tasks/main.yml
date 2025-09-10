@@ -26,6 +26,17 @@
 - name: "Dispatch on installation method"
   ansible.builtin.include_tasks: "{{ 'install_via_' + teleport_install_method + '.yml' }}"
 
+- name: Create teleport systemd environment file
+  ansible.builtin.copy:
+    dest: '{{ teleport_systemd_envfile }}'
+    content: '{{ teleport_systemd_env_content }}'
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  notify:
+    - Reload_Teleport
+
 - name: Create teleport config
   become: yes
   ansible.builtin.template:

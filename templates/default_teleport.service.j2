@@ -5,6 +5,7 @@ After=network.target
 [Service]
 Type=simple
 Restart=on-failure
+EnvironmentFile={{ teleport_systemd_envfile }}
 ExecStart=/usr/local/bin/teleport start --config={{ teleport_config_path }} --pid-file=/run/teleport.pid
 ExecReload=/bin/kill -HUP $MAINPID
 PIDFile=/run/teleport.pid

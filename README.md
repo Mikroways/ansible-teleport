@@ -116,6 +116,35 @@ teleport_template_config
 ```
 Default `yes`. Controls if this role modifies the teleport config file.
 
+```
+teleport_apps: []
+```
+Defaults empry, but can be an arbitrary list of applications accesible from
+node. For example:
+
+```
+teleport_apps:
+  - name: app-name
+    uri: https://172.30.1.10:8080/
+    insecure_skip_verify: true
+    labels:
+      lable-1: "example"
+```
+> More options can be found at [teleport advanced options](https://goteleport.com/docs/enroll-resources/application-access/guides/connecting-apps/#advanced-options)
+
+```
+teleport_systemd_env_content: ''
+```
+
+Defaults to empty string. Any configuration send to teleport binary as
+systemd EnvironmentFile can be set here. For example, some nodes need an https
+proxy to acccess teleport gateway. For example:
+
+```
+teleport_systemd_env_content: |
+HTTPS_PROXY=http://1.2.3.4:3128
+```
+
 ## Upgrading Teleport
 
 For `tar` installation method, when the role is run, it checks if the installed version matches the version specified in `teleport_version`. If different then it will download the latest version and install it.
@@ -214,5 +243,9 @@ MIT / BSD
 
 This role was created in 2021 by Matthew Draws for [KPM Power](https://github.com/kpmteam/ansible-teleport)
 
+An update was made on 2025 by Christian Rodriguez to allow proxy configuration
+and  teleport apps.
+
 ## Maintainers
 - Matthew Draws: [mdsketch](https://github.com/mdsketch)
+- Christian Rodriguez @ Mikroways: [Mikrways](https://github.com/Mikroways)

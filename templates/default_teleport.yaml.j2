@@ -36,3 +36,9 @@ proxy_service:
   acme: {}
 auth_service:
   enabled: "no"
+{% if teleport_apps %}
+app_service:
+  enabled: "yes"
+  debug_app: false
+  apps: {{ teleport_apps}}
+{% endif %}

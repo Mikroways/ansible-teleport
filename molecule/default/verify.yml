@@ -51,6 +51,18 @@
           - systemd.stat.mode == '0644'
           - systemd.stat.pw_name == 'root'
 
+    - name: Ensure /etc/teleport.env file is present
+      ansible.builtin.stat:
+        path: /etc/systemd/system/teleport.service
+      register: systemd_event
+    - name: Validate systemd env file present
+      ansible.builtin.assert:
+        that:
+          - systemd_event.stat.exists
+          - systemd.stat.size != 0
+          - systemd_event.stat.mode == '0644'
+          - systemd_event.stat.pw_name == 'root'
+
     - name: Debian | Ensure pgrep is present
       ansible.builtin.package:
         name: procps

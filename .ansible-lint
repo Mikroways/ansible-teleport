@@ -4,6 +4,7 @@
 # Ignore these paths during auto-detection
 exclude_paths:
   - '.github'
+  - '.direnv'
 
 # Ref: https://github.com/ansible-community/ansible-lint/blob/main/.ansible-lint#L41-L49
 enable_list:
