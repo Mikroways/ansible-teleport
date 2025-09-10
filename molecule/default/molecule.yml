@@ -22,7 +22,7 @@ provisioner:
           HTTPS_PROXY=http://1.2.3.4:8080
         teleport_apps:
           - name: app-test
-            uri: https://172.30.1.10:8080/ 
+            uri: https://172.30.1.10:8080/
             insecure_skip_verify: true
             labels:
               lable-1: "example"
