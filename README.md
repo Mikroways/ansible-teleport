@@ -119,7 +119,7 @@ Default `yes`. Controls if this role modifies the teleport config file.
 ```
 teleport_apps: []
 ```
-Defaults empry, but can be an arbitrary list of applications accesible from
+Defaults empry, but can be an arbitrary list of applications accessible from
 node. For example:
 
 ```
@@ -138,7 +138,7 @@ teleport_systemd_env_content: ''
 
 Defaults to empty string. Any configuration send to teleport binary as
 systemd EnvironmentFile can be set here. For example, some nodes need an https
-proxy to acccess teleport gateway. For example:
+proxy to access teleport gateway. For example:
 
 ```
 teleport_systemd_env_content: |
