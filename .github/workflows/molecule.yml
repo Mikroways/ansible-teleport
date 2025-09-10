@@ -36,7 +36,7 @@ jobs:
     env:
       ANSIBLE_CALLBACKS_ENABLED: profile_tasks
       MOLECULE_NO_LOG: "false"
-      ANSIBLE_ROLE: mdsketch.teleport
+      ANSIBLE_ROLE: mikroways.teleport
 
     steps:
       - uses: actions/checkout@v3
