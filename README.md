@@ -21,7 +21,9 @@ Please Check the teleport config file [documentation](https://goteleport.com/doc
 
 A running teleport cluster so that you can provide the following information:
 
-- auth token (dynamic or static). Ex: `tctl nodes add --ttl=5m --roles=node | grep "invite token:" | grep -Eo "[0-9a-z]{32}"`
+- auth token (dynamic or static). Ex: `tctl nodes add --ttl=5m --roles=node |
+  grep "invite token:" | grep -Eo "[0-9a-z]{32}"`. In case applications will be
+configured, add app role: `--roles=node,app`
 - CA pin
 - address of the authentication or proxy server
 
