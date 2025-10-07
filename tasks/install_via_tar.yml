@@ -27,7 +27,7 @@
     - name: Unarchive teleport
       ansible.builtin.unarchive:
         src: "{{ teleport_url }}"
-        dest: "/tmp"
+        dest: "{{ teleport_tmp_dir }}"
         remote_src: yes
       when: not teleport_bin.stat.exists or update_teleport
 
@@ -35,6 +35,6 @@
       ansible.builtin.command:  # noqa no-changed-when
         cmd: ./install
       args:
-        chdir: /tmp/teleport
+        chdir: "{{ teleport_tmp_dir }}/teleport"
       notify: Reload_Teleport
       when: not teleport_bin.stat.exists or update_teleport
