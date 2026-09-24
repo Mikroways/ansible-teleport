@@ -7,5 +7,5 @@
     daemon_reload: yes
     enabled: yes
   when:
-    - teleport_control_systemd
+    - teleport_control_systemd | bool
     - not is_container | bool
