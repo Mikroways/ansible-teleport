@@ -21,7 +21,7 @@
       ansible.builtin.set_fact:
         update_teleport: "{{ teleport_version not in teleport_installed_version.stdout }}"
       when: teleport_bin.stat.exists
-      changed_when: update_teleport
+      changed_when: update_teleport | bool
       notify: Reload_Teleport
 
     - name: Unarchive teleport
@@ -29,7 +29,7 @@
         src: "{{ teleport_url }}"
         dest: "/tmp"
         remote_src: yes
-      when: not teleport_bin.stat.exists or update_teleport
+      when: not teleport_bin.stat.exists or update_teleport | bool
 
     - name: Install teleport
       ansible.builtin.command:  # noqa no-changed-when
@@ -37,4 +37,4 @@
       args:
         chdir: /tmp/teleport
       notify: Reload_Teleport
-      when: not teleport_bin.stat.exists or update_teleport
+      when: not teleport_bin.stat.exists or update_teleport | bool

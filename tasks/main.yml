@@ -11,8 +11,8 @@
 - name: "Lookup the cloud server version if none was provided"
   ansible.builtin.include_tasks: detect_cloud_version.yml
   when:
-    - teleport_autodetect_version
-    - not teleport_version | string
+    - teleport_autodetect_version | bool
+    - teleport_version | default('', true) | string | length == 0
 
 - name: "Check if a teleport configuration is present"
   ansible.builtin.stat:
@@ -46,9 +46,9 @@
     group: "root"
     mode: "0600"
     backup: "{{ backup_teleport_config }}"
-  when: teleport_template_config
+  when: teleport_template_config | bool
   notify: Reload_Teleport
 
 - name: "Configure systemd service"
   ansible.builtin.include_tasks: "systemd.yml"
-  when: teleport_control_systemd
+  when: teleport_control_systemd | bool
