@@ -15,6 +15,9 @@
         removes: "{{ teleport_config_path }}"
       register: "teleport_installed_version"
       changed_when: false
+      # Read-only: if it is skipped in check mode the version is unknown and
+      # the role downloads the whole archive as if it needed an update.
+      check_mode: false
       when: teleport_bin.stat.exists
 
     - name: Set teleport_update
