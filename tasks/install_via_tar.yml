@@ -15,13 +15,16 @@
         removes: "{{ teleport_config_path }}"
       register: "teleport_installed_version"
       changed_when: false
+      # Read-only: if it is skipped in check mode the version is unknown and
+      # the role downloads the whole archive as if it needed an update.
+      check_mode: false
       when: teleport_bin.stat.exists
 
     - name: Set teleport_update
       ansible.builtin.set_fact:
         update_teleport: "{{ teleport_version not in teleport_installed_version.stdout }}"
       when: teleport_bin.stat.exists
-      changed_when: update_teleport
+      changed_when: update_teleport | bool
       notify: Reload_Teleport
 
     - name: Unarchive teleport
@@ -29,7 +32,7 @@
         src: "{{ teleport_url }}"
         dest: "{{ teleport_tmp_dir }}"
         remote_src: yes
-      when: not teleport_bin.stat.exists or update_teleport
+      when: not teleport_bin.stat.exists or update_teleport | bool
 
     - name: Install teleport
       ansible.builtin.command:  # noqa no-changed-when
@@ -37,4 +40,4 @@
       args:
         chdir: "{{ teleport_tmp_dir }}/teleport"
       notify: Reload_Teleport
-      when: not teleport_bin.stat.exists or update_teleport
+      when: not teleport_bin.stat.exists or update_teleport | bool

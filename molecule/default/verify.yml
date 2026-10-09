@@ -72,7 +72,15 @@
       ansible.builtin.package:
         name: procps-ng
         state: present
-      when: ansible_os_family == "RedHat" and ansible_distribution_major_version | int >= 8
+      when: ansible_os_family == "RedHat" and ansible_distribution_major_version | int >= 9
+    # ansible-core 2.18 needs Python >= 3.8 on the target, which on EL8 is
+    # python3.11; the dnf bindings only exist for the system python3.6, so the
+    # package module fails there. The dnf command does not depend on them.
+    - name: RedHat 8 | Ensure pgrep is present
+      ansible.builtin.command: dnf install -y procps-ng  # noqa: command-instead-of-module
+      register: el8_procps
+      changed_when: "'Nothing to do' not in el8_procps.stdout"
+      when: ansible_os_family == "RedHat" and ansible_distribution_major_version | int == 8
     - name: Ensure process is running
       ansible.builtin.command: pgrep -u root teleport
       register: ps

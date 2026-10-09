@@ -3,11 +3,14 @@
   ansible.builtin.uri:
     url: >-
       {{ "https://" +
-       ( teleport_proxy_server if teleport_proxy_server | string else teleport_auth_server )
+       ( teleport_proxy_server if teleport_proxy_server | string | length > 0 else teleport_auth_server )
        + "/v1/webapi/automaticupgrades/channel/stable/cloud/version" }}
     return_content: true
     status_code: 200
   register: teleport_server_lookup
+  # Read-only GET: in check mode uri is skipped, and the next task fails with
+  # "'dict object' has no attribute 'content'".
+  check_mode: false
 
 - name: "Set the server version as a fact"
   ansible.builtin.set_fact:
