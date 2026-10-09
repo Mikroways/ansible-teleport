@@ -64,6 +64,13 @@ The method used for installation, currently supported by the role:
 - `apt` Install gravitational keyring and the packages requested via apt.
 
 ```
+teleport_tmp_dir: "{{ ansible_remote_tmp | default('/tmp') }}"
+```
+This is only used with teleport_install_method: "tar": where the archive is
+unpacked and `./install` runs. Ansible's remote temp dir when it is defined,
+`/tmp` otherwise. Set it when `/tmp` is mounted `noexec`.
+
+```
 teleport_edition: "oss"
 ```
 This is only used with teleport_install_method: "apt":
