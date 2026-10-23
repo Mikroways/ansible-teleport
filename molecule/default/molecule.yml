@@ -20,6 +20,7 @@ provisioner:
       teleportclients:
         teleport_systemd_env_content: |
           HTTPS_PROXY=http://1.2.3.4:8080
+        teleport_diag_addr: "127.0.0.1:3000"
         teleport_apps:
           - name: app-test
             uri: https://172.30.1.10:8080/
