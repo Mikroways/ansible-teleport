@@ -27,6 +27,15 @@
         that: >
           cfg.stat.exists
 
+    - name: Read teleport config
+      ansible.builtin.slurp:
+        src: /etc/teleport.yaml
+      register: cfg_content
+    - name: Ensure diag_addr comes from teleport_diag_addr
+      ansible.builtin.assert:
+        that: >
+          (cfg_content.content | b64decode | from_yaml).teleport.diag_addr == '127.0.0.1:3000'
+
     - name: Ensure /usr/local/bin/teleport file is present
       ansible.builtin.stat:
         path: /usr/local/bin/teleport

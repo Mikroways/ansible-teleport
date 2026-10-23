@@ -17,7 +17,7 @@ teleport:
     severity: INFO
     format:
       output: text
-  diag_addr: ""
+  diag_addr: "{{ teleport_diag_addr }}"
 ssh_service:
   enabled: "yes"
 {% if teleport_ssh_labels | length > 0 %}

@@ -39,6 +39,9 @@ teleport_apps: []
   #      lable-1: "example"
 
 teleport_proxy_server: ""
+# Address for the diagnostic endpoint (/metrics, /healthz, /readyz).
+# Empty keeps it disabled. Example: "127.0.0.1:3000".
+teleport_diag_addr: ""
 teleport_control_systemd: yes
 teleport_template_config: yes
 # Default dont change

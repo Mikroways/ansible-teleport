@@ -111,6 +111,11 @@ teleport_proxy_server
 The proxy server to user for the teleport configuration. Examples are shown as defaults above.
 
 ```
+teleport_diag_addr
+```
+Address where the agent exposes its diagnostic endpoint (`/metrics`, `/healthz` and `/readyz`), for example `127.0.0.1:3000` so a local agent such as Grafana Alloy (`mikroways.alloy`) can scrape it. The default is `""`, which keeps it disabled.
+
+```
 backup_teleport_config
 ```
 Runs a backup of the teleport configuration file before overwriting it. The default is `yes`. See [Upgrading Teleport](#upgrading-teleport) for more information.
